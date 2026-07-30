@@ -119,11 +119,43 @@
       box-shadow: 0 0 25px rgba(255, 255, 255, 0.12)
     }
 
+    #proposal {
+      display: none;
+      text-align: center;
+      max-width: min(760px, 90vw);
+      width: min(760px, 90vw);
+      padding: 20px 24px;
+      background: rgba(2, 3, 11, 0.6);
+      border-radius: 20px;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.12);
+      gap: 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .proposal-buttons {
+      display: flex;
+      gap: 16px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
     #end img {
       width: min(320px, 70vw);
       max-width: 80vw;
       border-radius: 18px;
-      box-shadow: 0 0 30px #fff4
+      box-shadow: 0 0 30px #fff4;
+      display: block;
+      margin: 0 auto 18px;
+    }
+
+    .final-phrase {
+      margin-top: 18px;
+      font-size: 1.1rem;
+      color: #ffd4e8;
     }
 
     .heart {
@@ -155,12 +187,28 @@
 
   <div class="screen" id="storyScreen">
     <div id="story"></div>
+    <button id="continueBtn" style="display:none; margin-top: 20px;">Toca aquí</button>
 
     <div id="end">
-      <img src="https://i.pinimg.com/736x/30/ac/68/30ac68c8d3951075c693293942f4e0b7.jpg" alt="Momento de amor">
+      <img id="finalImage" src="https://i.pinimg.com/736x/30/ac/68/30ac68c8d3951075c693293942f4e0b7.jpg"
+        alt="Momento de amor">
       <h2>Te extraño cuando te vas :C ❤️</h2>
       <p>Eres una parte hermosa de todo lo que siento.</p>
     </div>
+
+    <div id="proposal">
+      <h2>¿Quieres ser mi pareja?</h2>
+      <div class="proposal-buttons">
+        <button id="yesBtn">Sí</button>
+        <button id="noBtn">No</button>
+      </div>
+      <div class="final-phrase" id="finalPhrase"></div>
+    </div>
+  </div>
+
+  <div id="musicPlayer" style="display:none; margin-top: 12px;">
+    <iframe id="bgMusicFrame" width="320" height="180" src="" title="Música de amor" frameborder="0"
+      allow="autoplay; encrypted-media" allowfullscreen></iframe>
   </div>
 
   <script>
@@ -218,11 +266,20 @@ Te amodoro con todo mi corazón.
 
 Hoy, mañana y siempre. gracias por aceptarme❤️`;
 
+    const continueBtn = document.getElementById("continueBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const proposal = document.getElementById("proposal");
+    const musicPlayer = document.getElementById("musicPlayer");
+    const bgMusicFrame = document.getElementById("bgMusicFrame");
+    const finalPhrase = document.getElementById("finalPhrase");
+
     go.addEventListener("click", () => {
       start.style.display = "none";
       storyScreen.style.display = "flex";
       story.style.display = "block";
       story.innerHTML = "";
+      continueBtn.style.display = "none";
       let i = 0;
       let timer = setInterval(() => {
         if (text[i] == "\n") story.innerHTML += "<br>";
@@ -230,12 +287,28 @@ Hoy, mañana y siempre. gracias por aceptarme❤️`;
         i++;
         if (i >= text.length) {
           clearInterval(timer);
-          setTimeout(() => {
-            story.style.display = "none";
-            end.style.display = "block";
-          }, 2500);
+          continueBtn.style.display = "inline-block";
         }
       }, 40);
+    });
+
+    continueBtn.addEventListener("click", () => {
+      continueBtn.style.display = "none";
+      proposal.style.display = "flex";
+    });
+
+    yesBtn.addEventListener("click", () => {
+      bgMusicFrame.src = "https://www.youtube.com/embed/_NFzDSudw10?autoplay=1&controls=0&rel=0&showinfo=0";
+      musicPlayer.style.display = "block";
+      finalPhrase.textContent = "¡Gracias! ❤️ Estoy muy feliz de que seas mi novia. Te prometo cuidarte siempre.";
+      yesBtn.disabled = true;
+      noBtn.disabled = true;
+    });
+
+    noBtn.addEventListener("click", () => {
+      finalPhrase.textContent = "Gracias por leerlo. Siempre te querré y respetaré tu respuesta. 🌹";
+      yesBtn.disabled = true;
+      noBtn.disabled = true;
     });
   </script>
 </body>
