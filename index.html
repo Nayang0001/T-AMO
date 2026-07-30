@@ -187,9 +187,9 @@
 
   <div class="screen" id="storyScreen">
     <div id="story"></div>
-    <button id="continueBtn" style="display:none; margin-top: 20px;">Toca aquí</button>
+    <button id="continueBtn" style="display:none; margin-top: 20px;">Seguir</button>
 
-    <div id="end">
+    <div id="end" style="display:none;">
       <img id="finalImage" src="https://i.pinimg.com/736x/30/ac/68/30ac68c8d3951075c693293942f4e0b7.jpg"
         alt="Momento de amor">
       <h2>Te extraño cuando te vas :C ❤️</h2>
@@ -280,6 +280,8 @@ Hoy, mañana y siempre. gracias por aceptarme❤️`;
       story.style.display = "block";
       story.innerHTML = "";
       continueBtn.style.display = "none";
+      end.style.display = "none";
+      proposal.style.display = "none";
       let i = 0;
       let timer = setInterval(() => {
         if (text[i] == "\n") story.innerHTML += "<br>";
@@ -294,6 +296,7 @@ Hoy, mañana y siempre. gracias por aceptarme❤️`;
 
     continueBtn.addEventListener("click", () => {
       continueBtn.style.display = "none";
+      end.style.display = "block";
       proposal.style.display = "flex";
     });
 
